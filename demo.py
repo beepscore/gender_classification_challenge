@@ -20,6 +20,7 @@ Y = ['male', 'male', 'female', 'female', 'male', 'male', 'female', 'female',
 
 # visualize training data
 # http://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html
+# after plot window displays, close it to continue program execution
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
