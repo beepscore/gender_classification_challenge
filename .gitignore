@@ -131,3 +131,6 @@ data/input/*
 # excel files
 #*.xls
 #*.xlsx
+#
+# png files
+*.png
