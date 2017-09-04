@@ -1,14 +1,14 @@
-from sklearn import tree
+#!/usr/bin/env python3
 
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
-clf = tree.DecisionTreeClassifier()
+import collections
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
 
-# CHALLENGE - create 3 more classifiers...
-# 1
-# 2
-# 3
 
 # [height, weight, shoe_size]
 X = [[181, 80, 44], [177, 70, 43], [160, 60, 38], [154, 54, 37], [166, 65, 40],
@@ -39,11 +39,20 @@ ax.set_zlabel('shoe size')
 
 plt.show()
 
-# CHALLENGE - ...and train them on our data
-clf = clf.fit(X, Y)
+# train and predict
 
-prediction = clf.predict([[190, 70, 43]])
+NamedClassifier = collections.namedtuple('NamedClassifier', 'name classifier')
 
-# CHALLENGE compare their reusults and print the best one!
+# http://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html
+named_classifiers = [NamedClassifier("Nearest Neighbors", KNeighborsClassifier(3)),
+                     NamedClassifier("Linear SVM", SVC(kernel="linear", C=0.025)),
+                     NamedClassifier("Decision Tree", DecisionTreeClassifier()),
+                     NamedClassifier("Naive Bayes", GaussianNB())
+                     ]
 
-print(prediction)
+for named_classifier in named_classifiers:
+    # train classifier
+    classifier = named_classifier.classifier.fit(X, Y)
+
+    prediction = classifier.predict([[190, 70, 43]])
+    print("{} predicts {}".format(named_classifier.name, prediction))
